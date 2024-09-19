@@ -9,6 +9,11 @@ const users = sequelize.define("users", {
         type: DataTypes.STRING,
         allowNull: false,
         unique: false
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
     }
 })
 return users;

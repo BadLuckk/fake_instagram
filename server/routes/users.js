@@ -1,27 +1,46 @@
 const express = require("express");
-const router = express.Router()
+const bcrypt = require("bcrypt");
+const { users } = require("../models");
+const Validation = require("../helpers/Validation");
 
-const { users } = require("../models") 
+const router = express.Router();
 
-router.get('/', async (req, res) => {
-    return res.send(true);
+router.get('/', async (_, res) => {
+    return res.send(false);
 })
 
-router.post('/', async (req, res) => {
-    const {email, password} = req.body;
+router.post('/', async (request, res) => {
 
-    try{
+    const {email, password, username} = request.body;
+    
+    if(!Validation.isValidEmail(email)){
+        return res.json({ error: "Invalid Email"});
+    };
+    
+    if(!Validation.isValidPassword(password)) {
+        return res.json({ error: "Invalid Password"});
+    }
+    
+    if(!Validation.isValidUsername(username)){
+        return res.json({error: "invalid Username"});
+    }
+    try {
+        bcrypt.hash(password, 10).then(async (hash) => {
+            try {
+            await users.create({
+                email: email,
+                password: hash,
+                username: username
+            });
+            return res.json({message: "User has been CREATED"});
+            }catch(e) {
+                return res.json({ error: e})
+            };
+        })
 
-    
-    
-    await users.create({
-        email: email,
-        password: password
-    });
-}catch(e) {
-    return res.json({error: e});
-}
-    return res.json({message: "pappo viola codda codda"});
+    } catch(e) {
+        return res.json({ error: e});
+    }
 })
-
 module.exports = router;
+
