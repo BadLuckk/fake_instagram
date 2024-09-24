@@ -13,15 +13,15 @@ router.post('/', async (request, res) => {
 
     const {email, password, username} = request.body;
     
-    if(!Validation.isValidEmail(email)){
+    if(!email || !Validation.isValidEmail(email)){
         return res.json({ error: "Invalid Email"});
     };
     
-    if(!Validation.isValidPassword(password)) {
+    if(!password || !Validation.isValidPassword(password)) {
         return res.json({ error: "Invalid Password"});
     }
     
-    if(!Validation.isValidUsername(username)){
+    if(!username || !Validation.isValidUsername(username)){
         return res.json({error: "invalid Username"});
     }
     try {
@@ -42,5 +42,40 @@ router.post('/', async (request, res) => {
         return res.json({ error: e});
     }
 })
+
+router.post("/login", async (req, res)=>{
+        const {email, username, password} = req.body;
+
+        if(!email && !username) {
+            return res.json({error:"invalid Input"})
+        }
+        if(email && !Validation.isValidEmail(email)) {
+            return res.json ({error:"invalid Email"})
+        }
+        if(username && !Validation.isValidUsername(username)){
+            return res.json({error:"invalid Username"})
+        }
+    
+    let user;
+    if(username) {
+        user = await users.findOne({where:{username:username}})
+    }
+    else if(email) {
+        user =await users.findOne({where: {email:email}})
+    }
+
+    if(!user) {
+        return res.json({error: "Account does not exist."})
+    }
+    bcrypt.compare(password, user.password).then((match) => {
+        if(!match) {
+            return res.json({ error:"password sbagliata"})
+        }
+        return res.json ({login: true});
+    })
+
+}
+)
+
 module.exports = router;
 

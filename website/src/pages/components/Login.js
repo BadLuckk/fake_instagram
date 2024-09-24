@@ -2,46 +2,50 @@ import React from 'react';
 import '../../styles/SignUp.css';
 import axios from "axios";
 import Validation from "../../services/Validation";
+import { useNavigate } from "react-router-dom";
 
 function Login(props) {
+  const navigate = useNavigate();
  
 
-  async function onSignUp(e) {
+  async function onLogin(e) {
 
     e.preventDefault();
 
-    console.log("E", e.target[0].value, e.target[1].value, e.target[2].value);
+    console.log("E", e.target[0].value, e.target[1].value);
 
-    if(Validation.isEmail(e.target[0].value)){
+    if(!e.target[0].value){
+      return;
+    } 
 
+    if(!e.target[1].value){
+      return;
     }
-    axios.post {"http://localhost:5555/users",
-        {
-            ../Validation.isEmail(e.target[0].value) ? {email: e.target[e].value} :{username: e.target[e].value},
+
+    let res=await axios.post("http://localhost:5555/users/login",
+      {
+            ...(Validation.isEmail(e.target[0].value) ? {email: e.target[0].value} :{username: e.target[0].value}),
             password: e.target[1].value
 
-    }
+      }
 
-    }
-//     let respose = await 
-//     axios.post("http://localhost:5555/users",
-//     {
-//       email: e.target[0].value,
-//       password: e.target[1].value,
-//       username: e.target[2].value
-// })
-  
-//   console.log (respose.data)
+    )
+
+    if(res?.data?.error){
+      console.log("error",res.data.error);
+    }else if (res?.data?.login === true) (
+      navigate("/home")
+    )
   }
 
 
 
   return (
-    <form className="parent" onSubmit={onSignUp}>
+    <form className="parent" onSubmit={onLogin}>
       <h1>Benvenuto!!!</h1>
       <img src = "apple-touch-icon.png"></img>  
 
-      <input type="text" placeholder='username'/>  
+      <input type="text" placeholder='username or email'/>  
       <input type="text"placeholder='password'/> 
   
       <button type="submit"> Login </button>
