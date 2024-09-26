@@ -1,0 +1,19 @@
+.home {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: larger;
+    font-family:calc(grey);
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    gap: 20px;
+
+}
+.bot {
+    background-color: grey;
+    display: block;
+    gap: 30x;
+
+    flex-direction:column;
+}
