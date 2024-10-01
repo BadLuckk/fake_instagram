@@ -1,19 +1,32 @@
 .home {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    cursor:crosshair;
     font-size: larger;
-    font-family:calc(grey);
+    border-color: rgb(255, 0, 0);
+    scroll-margin-block: rgb(38, 0, 255);
+  
     display: flex;
-    justify-content:center;
+    justify-content:space-between;
     align-items: center;
     flex-direction: column;
     height: 100vh;
     gap: 20px;
+    background-color: blue;
 
 }
+
+.finestra {
+    background-color: white;
+}
 .bot {
-    background-color: grey;
-    display: block;
+    vertical-align:baseline;
+    border-color: blue;
+
+ 
     gap: 30x;
 
     flex-direction:column;
+}
+
+.bott {
+    border-color: blue;
 }

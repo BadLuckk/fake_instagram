@@ -2,6 +2,9 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const { users } = require("../models");
 const Validation = require("../helpers/Validation");
+const { sign } = require("jsonwebtoken");
+const { validateToken } = require("../middlewares/Authentication");
+require('dotenv').config()
 
 const router = express.Router();
 
@@ -71,11 +74,29 @@ router.post("/login", async (req, res)=>{
         if(!match) {
             return res.json({ error:"password sbagliata"})
         }
-        return res.json ({login: true});
+        const authToken = sign(
+            {
+                email: user.email,
+                id: user.id,
+                status: true,
+            }
+        , process.env.AUTH_SECRET)
+        return res.json({
+            authToken: authToken,
+            email: user.email,
+            id: user.id,
+            status:true
+        });
     })
 
-}
-)
+})
+router.get("/auth", validateToken, async (req, res)=>{
+    if(req.user) {
+        return res.json({ user : req.user});
+    }
+
+
+})
 
 module.exports = router;
 
