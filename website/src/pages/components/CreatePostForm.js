@@ -20,16 +20,15 @@ function CreatePostForm() {
             })
 
     }
-  return (
-    <form className='Form'  onSubmit={createPost}>
-        <h1>Post</h1>
-        <input type="text" placeholder='titolo' />
-        
-        <textarea className='descrizione'/>
-
-        <button type="submit"> Create Post </button>
-    </form>
-  )
+    return (
+        <form className="PostForm" onSubmit={createPost}>
+            <h2> CREATE POST </h2>
+                <input type="text" placeholder="Title"/>
+                <textarea type="text" placeholder="Description" />
+            <button id="Publish" type="submit"> Publish </button>
+    
+        </form>
+      )
 }
 
 export default CreatePostForm
