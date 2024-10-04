@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes)=> {
             type: DataTypes.STRING,
             allowNull: false,
             unique: false
+        },
+        status: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: false
+
         }
        
         
