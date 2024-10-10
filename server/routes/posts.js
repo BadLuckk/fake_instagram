@@ -3,19 +3,37 @@ const router = express.Router();
 const {validateToken} = require("../middlewares/Authentication")
 const { posts, users } = require ("../models");
 const { Op } = require("sequelize");
+
 router.post("/", validateToken, async (req, res) =>{
     const {title, description} = req.body;
 
     console.log("ID-----------------------------")
 
-    await posts.create({
+    let post = await posts.create({
         title: title,
         description: description,
         userId: req.user.id,
         status: "active"
     })
-    return res.json({ message: "Post creato"})
-
+    return res.json(post)
+})
+router.get("/:username", validateToken, async (req, res) => {
+    const {username} = req.params;
+    let user = await users.findOne({
+        where: {
+            username: username,
+        }
+    })
+    if(!user) {
+        return res.json({error: "user inesistente"})
+    }
+    let userPosts = await posts.findAll({
+        where: {
+            userId: user.id,
+            status: "active"
+        }
+    })
+    return res.json(userPosts)
 })
 router.delete("/:id", validateToken, async (req, res)=>{
     const {id} = req.params;

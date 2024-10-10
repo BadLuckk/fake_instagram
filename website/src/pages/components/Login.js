@@ -4,7 +4,7 @@ import axios from "axios";
 import Validation from "../../services/Validation";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../services/AuthContext';
-
+import { toast } from 'react-toastify';
 
 function Login(props) {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Login(props) {
     )
 
     if(res?.data?.error){
-      console.log("error",res.data.error);
+      toast.success("error",res.data.error);
     }else if (res?.data?.status === true) {
       setLogin({
         email: res?.data?.email,

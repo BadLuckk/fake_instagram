@@ -1,3 +1,12 @@
+.Home{
+    width: 100vw;
+    height: auto;
+    position: absolute;
+    left:0;
+    top:0;
+    cursor: crosshair;
+}
+
 .PostForm {
     max-width: 500px;
     margin: 20px auto;
@@ -39,4 +48,8 @@
 
 .PostForm button:hover {
     background-color: #218838;
+}
+.zobbia{
+    margin-top: 7vh;
+    cursor: crosshair;
 }

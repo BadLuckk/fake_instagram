@@ -12,6 +12,9 @@ import { PrivateRoute } from "./services/PrivateRoute";
 import { AuthContext } from "./services/AuthContext";
 import {useState, useEffect} from "react";
 import axios from "axios";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer,toast } from "react-toastify";
+import UserProfile from "./pages/UserProfile";
 function App() {
   
   const [login, setLogin] = useState(false);
@@ -34,7 +37,7 @@ function App() {
     }
     )
 if(res?.data?.error) {
-  console.log(res.data.error);
+  toast.error(res.data.error);
 
 }else if (res?.data?.user) {
   setLogin(res?.data?.user)
@@ -46,6 +49,7 @@ setLoading(false);
     return <></>
   }
   return (
+    <>
     <AuthContext.Provider value={{login, setLogin}}>
    <Router>
     <Routes>
@@ -53,10 +57,15 @@ setLoading(false);
       <Route path="/home" element={<PrivateRoute/>}>
       <Route path="/home" element={<Home/>}/>
       </Route>
+      <Route path="/user/:username" element={<PrivateRoute/>}>
+      <Route path="/user/:username" element={<UserProfile/>}/>
+      </Route>      
       <Route path="*" element={<Navigate to={login ? "/home" : "/entry"}/>}/>
     </Routes>
    </Router>
    </AuthContext.Provider>
+   <ToastContainer />
+   </>
   );
 }
 

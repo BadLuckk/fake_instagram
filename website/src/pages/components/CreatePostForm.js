@@ -1,14 +1,15 @@
 import React from 'react'
 import "../../styles/Form.css"
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-function CreatePostForm() {
+function CreatePostForm(props) {
 
     const createPost = async (e) =>{
         e.preventDefault();
         console.log(e.target[0].value, e.target[1].value)
 
-        await axios.post("http://localhost:5555/posts",
+        let response = await axios.post("http://localhost:5555/posts",
             {
                 title: e.target[0].value,
                 description:e.target[1].value
@@ -18,6 +19,8 @@ function CreatePostForm() {
                     authToken: localStorage.getItem("authToken")
                 }
             })
+            props.onCreate(response?.data);
+            toast.success("Post creato");
 
     }
     return (

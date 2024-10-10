@@ -77,6 +77,7 @@ router.post("/login", async (req, res)=>{
         const authToken = sign(
             {
                 email: user.email,
+                username: user.username,
                 id: user.id,
                 status: true,
             }
@@ -84,6 +85,7 @@ router.post("/login", async (req, res)=>{
         return res.json({
             authToken: authToken,
             email: user.email,
+            username: user.username,
             id: user.id,
             status:true
         });
