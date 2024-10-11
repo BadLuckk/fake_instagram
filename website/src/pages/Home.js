@@ -48,45 +48,53 @@ function Home() {
     }
     return(
         <div className="Home">
-          <Menu cambiaMenu={(value) => setMenu(value)}
+          <Menu 
+          cambiaMenu={(value) => setMenu(value)}
+          menu={menu}
             onLogout={onLogout}/>
           <div className='zobbia'>
             <h1> FINSTAGRAM </h1>
             <h2>HOME</h2>
             <div>
-              <button onClick={() => {setPosts(Sorting.sortPosts('oldest', posts))}} className='oldest'>oldest</button>
-            </div>
-           { menu === "show"
+        <button onClick = {() => {
+          let orderedPosts = Sorting.sortPosts("newest", [...posts])
+          setPosts(orderedPosts)}}
+        className="newest">
+        Newest
+        </button>
+        <button onClick={() => {
+          let orderedPosts = Sorting.sortPosts("oldest", [...posts])
+          setPosts(orderedPosts)}}>oldest</button>
+      </div>
+           { 
+           menu === "show"
             ?
             posts?.map((value) =>{
               return (
-                <Post post={value} deletePost={deletePost}/>
+                <Post post={value} deletePost={deletePost} />
               )
-            })
-            :
-          <CreatePostForm onCreate={(post)=> {
+          })
+          
+          :
+          <CreatePostForm onCreate={(post) => {
             setPosts([{
               ...post,
               user: {
                 username: login.username
-              }, 
-            },
-              ...posts
-            ])
+              }
+            }, ...posts])
             setMenu("show")
           }}/>
-          }
           
-         
+        }
+  
+        </div>
+  
+  
+        </div>
+  
 
-
-          </div>
-          
-      </div>
-      
-  )
-          
-}
+      )}
 export default Home
 
 
