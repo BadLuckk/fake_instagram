@@ -4,6 +4,8 @@ const {validateToken} = require("../middlewares/Authentication")
 const { posts, users } = require ("../models");
 const { Op } = require("sequelize");
 
+
+
 router.post("/", validateToken, async (req, res) =>{
     const {title, description} = req.body;
 
