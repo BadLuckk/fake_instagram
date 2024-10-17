@@ -29,7 +29,7 @@ function Home() {
       if (response?.data?.error) {
         toast.success(response.data.error)
       }else if(response.data) {
-        toast.success(response)
+      console.log(response.data)
 
         setPosts(Sorting.sortPosts(order, response.data));
       }

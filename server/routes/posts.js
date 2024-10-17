@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router();
 const {validateToken} = require("../middlewares/Authentication")
-const { posts, users } = require ("../models");
+const { posts, users, postsLikes } = require ("../models");
 const { Op } = require("sequelize");
 
 
@@ -64,7 +64,11 @@ router.get("/",validateToken, async (req, res)=> {
         include: [{
             model: users,
             attributes: ["username"]
-        }]
+        },
+    {
+        model:postsLikes
+    }
+    ]
     })
     return res.json(allPosts)
 })

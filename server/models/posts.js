@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes)=> {
     posts.associate = (models) => {
         posts.hasMany(models.postsLikes, {foreignKey: "postId"})
         models.postsLikes.belongsTo(posts, {foreignKey: "postId"})
+
+        posts.hasMany(models.PostComments, {foreignKey:"postId"})
+        models.PostComments.belongsTo(posts, {foreignKey:"postId"})
     }
     return posts;
     }

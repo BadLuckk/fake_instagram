@@ -24,6 +24,10 @@ users.associate = (models) => {
 
     users.hasMany(models.postsLikes, { foreignKey: 'userId' });
     models.postsLikes.belongsTo (users, {foreignKey:'userId'});
+
+    users.hasMany(models.PostComments, { foreignKey: 'userId' });
+    models.PostComments.belongsTo (users, {foreignKey:'userId'});
+
 }
 
 return users;

@@ -16,7 +16,7 @@ router.post(
     })
     let likedPosts;
     if (postLiked){
-        likedPosts = await postLikes.update({
+        likedPosts = await postsLikes.update({
             like: like
         },{
             where: {
