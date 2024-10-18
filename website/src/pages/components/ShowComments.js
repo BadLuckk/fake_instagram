@@ -1,8 +1,31 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import Comment from './Comment'
 
-function ShowComments() {
+
+function ShowComments(props) {
+  const [comments, setComments]= useState([])
+
+  useEffect(()=>{
+getAllComents();
+  },[])
+  const getAllComents = async() =>{
+    let response = await axios.get ("http://localhost:5555/PostsComments/"+props?.postId,
+      {headers:{authToken: localStorage.getItem("authToken")}}
+    )
+    console.log(response.data)
+    setComments(response?.data)
+  }
+
+
   return (
-    <div>ShowComments</div>
+
+    <div>{comments?.map((value)=>{
+      return(
+      <Comment comment={value} />
+      )
+    })}</div>
   )
 }
 

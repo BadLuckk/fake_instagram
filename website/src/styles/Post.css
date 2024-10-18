@@ -9,7 +9,23 @@ width: 50vw;
 border-radius: 5px;
 padding: 1vh 3vw;
 }
-.PostTitle {
+
+.singlePost {
+    display: block;
+    background-color: pink;
+    margin-left: 25%;
+    margin-right: 25%;
+    align-items: center;
+    border-style: inset;
+    border-radius: 3px;
+    border-color: black;
+
+
+    
+}
+.postTitle {
+    margin-top: 50%;
+    border-style: inset;
     width: 100%;
     text-align: center;
     margin: 0;

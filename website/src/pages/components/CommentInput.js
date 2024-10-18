@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import '../../styles/CommentInput.css'
 
 function CommentInput(props) {
   const createComment= async(e) =>{
@@ -23,9 +24,9 @@ function CommentInput(props) {
   }
     return (
         <form onSubmit={createComment}>
-        <textarea>commento</textarea>
-    <button type='submit'>commenta</button>
-    <div>CommentInput</div>
+        <textarea className='inputcomment'></textarea>
+    <button type='submit' className='bottoneCommenta'>commenta</button>
+    <div></div>
     </form>
   )
 }

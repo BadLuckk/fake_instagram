@@ -7,11 +7,15 @@ import { useNavigate } from 'react-router-dom'
 import DateService from '../../services/DateService'
 import LikeSection from './LikeSection'
 import CommentSection from './CommentSection'
+import vVuota from "../../assets/v-vuota.svg"
+import vPiena from "../../assets/v-piena.svg"
+import ShowComments from './ShowComments'
 
 
 function Post(props){
     const {login} = useContext(AuthContext);
     const [username,setUsername] = useState("");
+    const [showComments, setShowComments] = useState(false)
     const navigate = useNavigate();
     useEffect(() =>{
         if(props?.username) {
@@ -27,7 +31,7 @@ function Post(props){
         let response = await axios.delete("http://localhost:5555/posts/" + props?.post?.id,
             {
                 headers: {
-                    authToken: localStorage.getItem("AuthToken")
+                    authToken: localStorage.getItem("authToken")
                 }
             }
         )
@@ -41,13 +45,17 @@ function Post(props){
             <p className='postDescription'>{props?.post?.description}</p>
             <div className='date'>{DateService.formatDate(props?.post?.createdAt)}</div>
             <div className='bottoni'>
-                <CommentSection postId ={props?.post?.id}/>
+                <button onClick={()=>{setShowComments(!showComments)}}>
+                    <img src={vVuota} alt={'commenti'}/>
+                </button>
+                
                 <LikeSection likes={props?.post?.postsLikes} postId={props?.post?.id}/>
             <button className='delete' onClick={onDelete}>Delete</button>
             <p className='postUsername' onClick = {() => {
                 navigate("/user/" + username)
             }}>{props?.username ? props?.username : props?.post?.user?.username}</p>
             </div>
+            {showComments ? <CommentSection postId={props?.post?.id}/> : <></>}
         </div>
       )
     }

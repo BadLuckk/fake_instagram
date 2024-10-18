@@ -4,10 +4,12 @@ import ShowComments from './ShowComments'
 
 function CommentSection(props) {
   return (
+     
     <div><CommentInput postId={props?.postId}/>
-    <ShowComments/>   
+    <ShowComments  postId={props?.postId}/>   
     </div>
+    
   )
 }
 
-export default CommentSection
+export default CommentSection 

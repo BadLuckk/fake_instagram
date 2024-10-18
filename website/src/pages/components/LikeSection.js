@@ -14,7 +14,7 @@ function LikeSection(props) {
     const [numLikes, setNumlikes]=useState(0);
 
 useEffect(() => {
-    if (props?.likes.length >=1){
+    if (props?.likes?.length >=1){
         let filtered = props?.likes?.filter((value) => {return login?.id==value.userId})[0]?.like
         setlike(filtered)
         let num = props?.likes?.filter((value)=> {return value.like==true})?.length
