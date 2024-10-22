@@ -47,6 +47,7 @@ function Post(props){
             <div className='bottoni'>
                 <button onClick={()=>{setShowComments(!showComments)}}>
                     <img src={vVuota} alt={'commenti'}/>
+                    <p>{props?.post?.PostComments.length}</p>
                 </button>
                 
                 <LikeSection likes={props?.post?.postsLikes} postId={props?.post?.id}/>
@@ -55,7 +56,7 @@ function Post(props){
                 navigate("/user/" + username)
             }}>{props?.username ? props?.username : props?.post?.user?.username}</p>
             </div>
-            {showComments ? <CommentSection postId={props?.post?.id}/> : <></>}
+            {showComments ? <CommentSection postId={props?.post?.id} comments={props?.post?.PostComments}/> : <></>}
         </div>
       )
     }

@@ -8,20 +8,26 @@ function ShowComments(props) {
   const [comments, setComments]= useState([])
 
   useEffect(()=>{
-getAllComents();
-  },[])
-  const getAllComents = async() =>{
+    setComments(props?.comments)
+getAllComments();
+  },[props])
+  const getAllComments = async() =>{
     let response = await axios.get ("http://localhost:5555/PostsComments/"+props?.postId,
       {headers:{authToken: localStorage.getItem("authToken")}}
     )
     console.log(response.data)
-    setComments(response?.data)
+
   }
 
 
   return (
 
-    <div>{comments?.map((value)=>{
+    <div>
+      <p>
+        {comments?.length}
+      </p>
+      
+      {comments?.map((value)=>{
       return(
       <Comment comment={value} />
       )

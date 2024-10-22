@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import '../styles/UserProfile.css';
 import Post from './components/Post';
 import { toast } from 'react-toastify';
+import Menu from './components/Menu';
 
 function UserProfile() {
     const {username} = useParams();
@@ -44,7 +45,7 @@ function UserProfile() {
                 }
 
     </div>
-
+    <Menu />
     <button onClick={() => navigate(-1)}>Home</button>
     </div>
   )
